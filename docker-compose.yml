@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: ecTeste
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ecTeste
+      MONGO_INITDB_ROOT_PASSWORD: ecTeste
+      MONGO_INITDB_DATABASE: ecTeste
+    ports:
+      - "29998:29998"
+    networks:
+      - f3network
+
+networks:
+  f3network:
+    driver: bridge
+
