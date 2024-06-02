@@ -7,11 +7,11 @@ import (
 	"main.go/controllers"
 )
 
-func initRouter(router *gin.Engine, u controllers.UserController) {
+func initUserRouter(router *gin.Engine, u controllers.UserController) {
 	slog.Info("Router initalizated")
-	basePath := "/api/v1"
 	v1 := router.Group(basePath)
 	{
-        v1.POST("/user", u.PostUser)
+
+		v1.POST("/user", u.PostUser)
 	}
 }

@@ -16,8 +16,7 @@ type UserModel struct {
 	ProfileImage string             `json:"profileImage"`
 }
 
-func NoArgsUserModel(name, lastName, cpf, city, state, address, mail, role, profileImage string, password, confirmPassword []byte,
-) *UserModel {
+func NoArgsUserModel(name, lastName, cpf, city, state, address, mail, role, profileImage string, password []byte) *UserModel {
 	return &UserModel{
 		Name:         "",
 		LastName:     "",
@@ -32,7 +31,22 @@ func NoArgsUserModel(name, lastName, cpf, city, state, address, mail, role, prof
 	}
 }
 
-func NewUserModel(name, lastName, cpf, city, state, address, mail, role, profileImage string, password, confirmPassword []byte,
+func NewUserModel(name, lastName, cpf, city, state, address, mail, role string, password []byte,
+) *UserModel {
+	return &UserModel{
+		Name:     name,
+		LastName: lastName,
+		Cpf:      cpf,
+		City:     city,
+		State:    state,
+		Address:  address,
+		Password: password,
+		Mail:     mail,
+		Role:     role,
+	}
+}
+
+func NewUserModeWithProfileImage(name, lastName, cpf, city, state, address, mail, role, profileImage string, password []byte,
 ) *UserModel {
 	return &UserModel{
 		Name:         name,
@@ -45,20 +59,5 @@ func NewUserModel(name, lastName, cpf, city, state, address, mail, role, profile
 		Mail:         mail,
 		Role:         role,
 		ProfileImage: profileImage,
-	}
-}
-
-func NewUserModelWithoutProfileImage(name, lastName, cpf, city, state, address, mail, role string, password, confirmPassword []byte,
-) *UserModel {
-	return &UserModel{
-		Name:     name,
-		LastName: lastName,
-		Cpf:      cpf,
-		City:     city,
-		State:    state,
-		Address:  address,
-		Password: password,
-		Mail:     mail,
-		Role:     role,
 	}
 }

@@ -21,7 +21,10 @@ func ConnectDatabase() (*mongo.Database, error) {
 	if err != nil {
 		return nil, fmt.Errorf("error initializing database: %v", err)
 	}
-
+	err = client.Ping(context.TODO(), nil)
+	if err != nil {
+		slog.Error("Ping error: %v", err)
+	}
 	slog.Info("Successfully connected to MongoDB!")
 	return client.Database("ecTeste"), nil
 }

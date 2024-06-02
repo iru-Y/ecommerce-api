@@ -27,17 +27,17 @@ func (controller userControllerImpl) PostUser(context *gin.Context) {
 	userDto := &dto.UserDto{}
 	context.BindJSON(&userDto)
 
-	user := &models.UserModel{
-		Name:     userDto.Name,
-		LastName: userDto.LastName,
-		Cpf:      userDto.Cpf,
-		City:     userDto.City,
-		State:    userDto.State,
-		Address:  userDto.Address,
-		Password: userDto.Password,
-		Mail:     userDto.Mail,
-		Role:     userDto.Role,
-	}
+	user := models.NewUserModel(
+		userDto.Name,
+		userDto.LastName,
+		userDto.Cpf,
+		userDto.City,
+		userDto.State,
+		userDto.Address,
+		userDto.Mail,
+		userDto.Role,
+		userDto.Password,
+	)
 	post, err := controller.userRepository.SaveUser(user)
 	if err != nil {
 		slog.Error("error on post user")

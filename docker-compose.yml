@@ -9,7 +9,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: ecTeste
       MONGO_INITDB_DATABASE: ecTeste
     ports:
-      - "29998:29998"
+      - "27017:27017"
     networks:
       - f3network
 

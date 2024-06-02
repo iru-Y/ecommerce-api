@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"log/slog"
 
-	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"main.go/models"
@@ -21,7 +20,6 @@ type UserRepository interface {
 
 type userRepositoryImpl struct {
 	Connection *mongo.Database
-	Context    *gin.Context
 }
 
 func NewUserRepository(db *mongo.Database) userRepositoryImpl {
@@ -37,9 +35,11 @@ func (repo userRepositoryImpl) FindAll(page, size int64) (*shared.PagedUser, err
 }
 
 func (repo userRepositoryImpl) SaveUser(user *models.UserModel) (*models.UserModel, error) {
+	if err != nil {
+		slog.Error("Deu ruim na 42")
+	}
 	user.Id = primitive.NewObjectID()
-
-	_, err := repo.Connection.Collection("users").InsertOne(repo.Context, user)
+	_, err := repo.Connection.Collection("users").InsertOne(ctx, user)
 	if err != nil {
 		slog.Error(fmt.Sprintf("error: %v", err))
 		return nil, err

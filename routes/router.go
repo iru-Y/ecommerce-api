@@ -9,10 +9,18 @@ import (
 	"main.go/repositories"
 )
 
+var (
+	basePath = "api/v1"
+)
+
 func Init(addr, port string, db *mongo.Database) {
 	userRepo := repositories.NewUserRepository(db)
 	userController := controllers.NewUserController(userRepo)
 	r := gin.Default()
-	initRouter(r, userController)
+
+	go func() {
+		initUserRouter(r, userController)
+	}()
+
 	r.Run(fmt.Sprintf(addr + ":" + port))
 }
